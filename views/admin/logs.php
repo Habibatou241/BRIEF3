@@ -43,8 +43,16 @@
                                     <?php foreach($data['logs'] as $log): ?>
                                         <tr>
                                             <td class="px-6 py-4 whitespace-nowrap">
-                                                <div class="text-sm font-medium text-gray-900"><?php echo $log->username; ?></div>
-                                                <div class="text-sm text-gray-500"><?php echo $log->email; ?></div>
+                                                <div class="flex items-center">
+                                                    <div>
+                                                        <div class="text-sm font-medium text-gray-900">
+                                                            <?php echo isset($log->username) ? htmlspecialchars($log->username) : 'N/A'; ?>
+                                                        </div>
+                                                        <div class="text-sm text-gray-500">
+                                                            <?php echo isset($log->email) ? htmlspecialchars($log->email) : 'N/A'; ?>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </td>
                                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                                                 <?php echo date('Y-m-d H:i:s', strtotime($log->login_time)); ?>

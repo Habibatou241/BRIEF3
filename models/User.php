@@ -219,11 +219,23 @@ class User {
         return $this->db->execute();
     }
 
-    public function getAllLoginHistory() {
-        $this->db->query('SELECT sessions.*, users.username, users.email 
-                          FROM sessions 
-                          JOIN users ON sessions.user_id = users.id 
-                          ORDER BY login_time DESC');
+    public function getAllLoginHistory($userId = null) {
+        $sql = 'SELECT s.*, u.username, u.email 
+                FROM sessions s
+                LEFT JOIN users u ON s.user_id = u.id';
+        
+        if ($userId) {
+            $sql .= ' WHERE s.user_id = :user_id';
+        }
+        
+        $sql .= ' ORDER BY s.login_time DESC';
+        
+        $this->db->query($sql);
+        
+        if ($userId) {
+            $this->db->bind(':user_id', $userId);
+        }
+        
         return $this->db->resultSet();
     }
 

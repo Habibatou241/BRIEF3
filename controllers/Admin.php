@@ -58,19 +58,19 @@ class Admin extends Controller {
     }
 
     public function logs() {
-        $userId = isset($_GET['user_id']) ? $_GET['user_id'] : null;
-        $logs = $userId ? 
-            $this->userModel->getLoginHistory($userId) : 
-            $this->userModel->getAllLoginHistory();
+        // Get selected user ID from query string
+        $selectedUser = isset($_GET['user_id']) ? $_GET['user_id'] : '';
         
+        // Use $this->userModel instead of creating a new instance
         $users = $this->userModel->getAllUsers();
+        $logs = $this->userModel->getAllLoginHistory($selectedUser);
         
         $data = [
-            'logs' => $logs,
             'users' => $users,
-            'selectedUser' => $userId
+            'logs' => $logs,
+            'selectedUser' => $selectedUser
         ];
-
+        
         $this->view('admin/logs', $data);
     }
 
