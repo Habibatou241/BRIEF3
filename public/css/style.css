@@ -1,0 +1,15 @@
+.navbar {
+    margin-bottom: 1rem;
+}
+
+.card {
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.invalid-feedback {
+    display: block;
+}
+
+.alert {
+    margin-top: 1rem;
+}
