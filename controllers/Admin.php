@@ -48,6 +48,13 @@ class Admin extends Controller {
 
     public function toggleUserStatus($userId) {
         if($_SERVER['REQUEST_METHOD'] == 'POST') {
+            // Prevent admin from deactivating their own account
+            if($userId == $_SESSION['user_id']) {
+                flash('admin_message', 'You cannot deactivate your own account', 'alert alert-danger');
+                redirect('admin/users');
+                return;
+            }
+
             if($this->userModel->toggleStatus($userId)) {
                 flash('admin_message', 'User status updated successfully');
             } else {
