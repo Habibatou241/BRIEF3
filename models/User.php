@@ -250,4 +250,15 @@ class User {
         $this->db->bind(':id', $id);
         return $this->db->execute();
     }
+
+    public function clearLoginHistory($userId = null) {
+        if ($userId) {
+            $this->db->query('DELETE FROM sessions WHERE user_id = :user_id');
+            $this->db->bind(':user_id', $userId);
+        } else {
+            $this->db->query('DELETE FROM sessions');
+        }
+        
+        return $this->db->execute();
+    }
 }
